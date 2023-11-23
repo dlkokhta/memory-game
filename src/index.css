@@ -11,3 +11,15 @@ body {
   max-height: 100vh;
   /* background-color: #121721; */
 }
+
+@keyframes spin {
+  to {
+    transform: rotateY(90deg);
+    /* transition: all ease-in 5s; */
+  }
+}
+
+.animate-spin {
+  animation: spin 0.2s linear;
+  animation-duration: 50ms;
+}

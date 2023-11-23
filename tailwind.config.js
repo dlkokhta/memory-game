@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {},
+
   theme: {
     extend: {
       colors: {
         orange: "#FDA214",
         lightGrey: "#BCCED9",
+        lightGrey2: "#DFE7EC",
         darkGrey: "#304859",
-        dima: "#152938",
+        darkBlue: "#152938",
         veryLightGray: "#F2F2F2",
         grey: "#7191A5",
         lightBlue: "#6395B8",
@@ -15,12 +18,26 @@ export default {
         orangeHover: "#FFB84A",
       },
     },
-  },
 
-  theme: {
+    // theme: {
+    //   extend: {
+    //     animation: {
+    //       spin: "spin 10000s linear",
+    //     },
+    //     keyframes: {
+    //       "spin-x": {
+    //         "0%": { transform: "rotateY(90deg)" },
+    //         "100%": { transform: "rotateY(90deg)" },
+    //       },
+    //     },
+    //   },
+    // },
     fontFamily: {
       atkinsonHyperlegible: ["Atkinson Hyperlegible", "sans-serif"],
     },
+    // fontSize: {
+    //   "3.2xl": "32px",
+    // },
     screens: {
       sm: "378px",
       // => @media (min-width: 640px) { ... }
