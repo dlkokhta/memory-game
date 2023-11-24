@@ -16,53 +16,74 @@ const GamePage = () => {
     isMatch: false,
   }));
 
-  const [randomNumbers, setRundomNumbers] =
+  const [randomNumbers, setRandomNumbers] =
     useState<objectTypes[]>(randomArray);
-  // console.log(randomNumbers);
+
   const [index, setIndex] = useState<number>(0);
 
   const dispatch = useDispatch();
   const menuIsVisible = useSelector((store: RootState) => store.menu2.menu);
 
-  const [firstNumber, setFirstNumber] = useState<objectTypes | null>(null);
-  const [secondNumber, setSecondNumber] = useState<objectTypes | null>(null);
+  const [firstNumber, setFirstNumber] = useState<{
+    num: objectTypes;
+    index: number;
+  } | null>(null);
+  const [secondNumber, setSecondNumber] = useState<{
+    num: objectTypes;
+    index: number;
+  } | null>(null);
 
   const numberClickHandler = (
-    clickedIndex: number,
-    clickedNum: objectTypes
+    clickedNum: objectTypes,
+    clickedIndex: number
   ) => {
-    setIndex(clickedIndex);
     const updatedCardObjects = [...randomNumbers];
     updatedCardObjects[clickedIndex].isFlipped = true;
-    setRundomNumbers(updatedCardObjects);
 
-    firstNumber ? setSecondNumber(clickedNum) : setFirstNumber(clickedNum);
+    if (!firstNumber || !secondNumber) {
+      setRandomNumbers(updatedCardObjects);
+      if (firstNumber) {
+        setSecondNumber({ num: clickedNum, index: clickedIndex });
+      } else {
+        setFirstNumber({ num: clickedNum, index: clickedIndex });
+      }
+    }
   };
 
   useEffect(() => {
     if (firstNumber && secondNumber) {
-      if (firstNumber.value === secondNumber.value) {
-        console.log("numbers match");
-        resetTurns();
+      if (firstNumber.num.value === secondNumber.num.value) {
+        const updatedCardObjects = [...randomNumbers];
+        updatedCardObjects[firstNumber.index].isMatch = true;
+        updatedCardObjects[secondNumber.index].isMatch = true; // Add this line
+        updatedCardObjects[firstNumber.index].isFlipped = true;
+        updatedCardObjects[secondNumber.index].isFlipped = true;
+        setRandomNumbers(updatedCardObjects);
+        setFirstNumber(null);
+        setSecondNumber(null);
       } else {
-        console.log("do not match");
         resetTurns();
+        console.log("do not match");
       }
     }
   }, [firstNumber, secondNumber]);
+  console.log(firstNumber?.num.value);
+  console.log(secondNumber?.num.value);
 
+  console.log(randomNumbers);
   const resetTurns = () => {
     setTimeout(() => {
       const updatedCardObjects = [...randomNumbers];
-      updatedCardObjects[index].isFlipped = false;
-      setRundomNumbers(updatedCardObjects);
+      firstNumber !== secondNumber;
+      updatedCardObjects[firstNumber.index].isFlipped = false;
+      updatedCardObjects[secondNumber.index].isFlipped = false;
+
+      setRandomNumbers(updatedCardObjects);
       setFirstNumber(null);
       setSecondNumber(null);
-    }, 1000);
+    }, 500);
   };
 
-  console.log("firstNumber", firstNumber);
-  console.log("secondNumber", secondNumber);
   const menuClickHandler = () => {
     dispatch(setMenu(!menuIsVisible));
   };
@@ -91,14 +112,11 @@ const GamePage = () => {
         {randomNumbers.map((num, index) => (
           <div
             className={`text-white font-bold text-[40px] p-[7px] rounded-full  ${
-              num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey"
-            }`}
+              num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey "
+            } ${num.isMatch ? "bg-lime-300" : ""}`}
             key={index}
             onClick={() => {
-              numberClickHandler(index, num);
-
-              // console.log("index", index);
-              // console.log("num", num);
+              numberClickHandler(num, index);
             }}
           >
             {num.isFlipped ? num.value : "\u00A0"}
