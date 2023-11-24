@@ -20,6 +20,6 @@ body {
 }
 
 .animate-spin {
-  animation: spin 0.2s linear;
-  animation-duration: 50ms;
+  animation: spin 0.5s linear;
+  animation-duration: 120ms;
 }

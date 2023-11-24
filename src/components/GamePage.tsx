@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenu } from "../store/MenuSlice";
 import { RootState } from "../store/store";
@@ -6,46 +6,63 @@ import { Link } from "react-router-dom";
 import { objectTypes } from "../types";
 
 const GamePage = () => {
-  const numbers = Array.from({ length: 8 }, (_, index) => {
-    const value = index + 1;
-    return {
-      value: value,
-      isFlipped: false,
-      isMatch: false,
-    };
-  });
-
-  // Duplicate each number to create pairs
-  const duplicateNumbers = numbers.concat(numbers);
-
-  // Shuffle the duplicate numbers array
-  const randomArray = duplicateNumbers.slice().sort(() => Math.random() - 0.5);
+  const numbers = Array.from({ length: 8 }, (_, index) => index + 1);
+  const pairs = numbers.concat(numbers);
+  const shuffledPairs = pairs.sort(() => Math.random() - 0.5);
+  const randomArray = shuffledPairs.map((value, index) => ({
+    id: index,
+    value: value,
+    isFlipped: false,
+    isMatch: false,
+  }));
 
   const [randomNumbers, setRundomNumbers] =
     useState<objectTypes[]>(randomArray);
-
-  const [clickedObject, setClickedObject] = useState<objectTypes | null>(null);
-
-  // const [firstNumber, setFirstNumber] = useState<number | null>(null);
+  // console.log(randomNumbers);
+  const [index, setIndex] = useState<number>(0);
 
   const dispatch = useDispatch();
   const menuIsVisible = useSelector((store: RootState) => store.menu2.menu);
 
-  // const numberClickHandler = (clickedNum: objectTypes): void => {
-  //   setClickedObject(clickedNum);
+  const [firstNumber, setFirstNumber] = useState<objectTypes | null>(null);
+  const [secondNumber, setSecondNumber] = useState<objectTypes | null>(null);
 
-  //   setClickedObject((prevClickedObject) => {
-  //     if (prevClickedObject) {
-  //       return {
-  //         ...prevClickedObject,
-  //         isFlipped: !prevClickedObject.isFlipped,
-  //       };
-  //     }
-  //     return prevClickedObject;
-  //   });
-  // };
-  // console.log(clickedObject?.value);
+  const numberClickHandler = (
+    clickedIndex: number,
+    clickedNum: objectTypes
+  ) => {
+    setIndex(clickedIndex);
+    const updatedCardObjects = [...randomNumbers];
+    updatedCardObjects[clickedIndex].isFlipped = true;
+    setRundomNumbers(updatedCardObjects);
 
+    firstNumber ? setSecondNumber(clickedNum) : setFirstNumber(clickedNum);
+  };
+
+  useEffect(() => {
+    if (firstNumber && secondNumber) {
+      if (firstNumber.value === secondNumber.value) {
+        console.log("numbers match");
+        resetTurns();
+      } else {
+        console.log("do not match");
+        resetTurns();
+      }
+    }
+  }, [firstNumber, secondNumber]);
+
+  const resetTurns = () => {
+    setTimeout(() => {
+      const updatedCardObjects = [...randomNumbers];
+      updatedCardObjects[index].isFlipped = false;
+      setRundomNumbers(updatedCardObjects);
+      setFirstNumber(null);
+      setSecondNumber(null);
+    }, 1000);
+  };
+
+  console.log("firstNumber", firstNumber);
+  console.log("secondNumber", secondNumber);
   const menuClickHandler = () => {
     dispatch(setMenu(!menuIsVisible));
   };
@@ -55,16 +72,7 @@ const GamePage = () => {
   const newGameButtonChangeHandler = () => {
     dispatch(setMenu(!menuIsVisible));
   };
-  const restartButtonClickHandler = () => {
-    // const numbers = Array.from({ length: 8 }, (_, number) => [
-    //   number + 1,
-    //   number + 1,
-    // ]).flat();
-    // const randomArray = numbers.sort(() => Math.random() - 0.5);
-    // // setRundomNumbers(randomArray);
-    // dispatch(setMenu(!menuIsVisible));
-  };
-  console.log(randomNumbers);
+  const restartButtonClickHandler = () => {};
 
   return (
     <div className="p-6 relative">
@@ -83,18 +91,17 @@ const GamePage = () => {
         {randomNumbers.map((num, index) => (
           <div
             className={`text-white font-bold text-[40px] p-[7px] rounded-full  ${
-              randomNumbers.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey"
+              num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey"
             }`}
             key={index}
             onClick={() => {
-              const updatedNumbers = [...randomNumbers]; // Create a copy of the array
-              updatedNumbers[index].isFlipped = true; // Update the copy
-              setRundomNumbers(updatedNumbers); // Set the state with the updated copy
-              console.log("index", index);
+              numberClickHandler(index, num);
+
+              // console.log("index", index);
+              // console.log("num", num);
             }}
           >
-            {/* {clickedNumber === num ? num : "\u00A0"} */}
-            {randomNumbers.isFlipped ? num.value : "\u00A0"}
+            {num.isFlipped ? num.value : "\u00A0"}
           </div>
         ))}
       </div>
