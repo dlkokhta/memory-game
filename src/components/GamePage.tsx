@@ -19,7 +19,7 @@ const GamePage = () => {
   const [randomNumbers, setRandomNumbers] =
     useState<objectTypes[]>(randomArray);
 
-  const [index, setIndex] = useState<number>(0);
+  // const [index, setIndex] = useState<number>(0);
 
   const dispatch = useDispatch();
   const menuIsVisible = useSelector((store: RootState) => store.menu2.menu);
@@ -37,6 +37,13 @@ const GamePage = () => {
     clickedNum: objectTypes,
     clickedIndex: number
   ) => {
+    if (randomNumbers[clickedIndex].isFlipped) {
+      return;
+    }
+    if (firstNumber && secondNumber) {
+      return;
+    }
+
     const updatedCardObjects = [...randomNumbers];
     updatedCardObjects[clickedIndex].isFlipped = true;
 
@@ -75,9 +82,14 @@ const GamePage = () => {
     setTimeout(() => {
       const updatedCardObjects = [...randomNumbers];
       firstNumber !== secondNumber;
-      updatedCardObjects[firstNumber.index].isFlipped = false;
-      updatedCardObjects[secondNumber.index].isFlipped = false;
-
+      // updatedCardObjects[firstNumber.index].isFlipped = false;
+      // updatedCardObjects[secondNumber.index].isFlipped = false;
+      if (firstNumber) {
+        updatedCardObjects[firstNumber.index].isFlipped = false;
+      }
+      if (secondNumber) {
+        updatedCardObjects[secondNumber.index].isFlipped = false;
+      }
       setRandomNumbers(updatedCardObjects);
       setFirstNumber(null);
       setSecondNumber(null);
@@ -113,7 +125,7 @@ const GamePage = () => {
           <div
             className={`text-white font-bold text-[40px] p-[7px] rounded-full  ${
               num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey "
-            } ${num.isMatch ? "bg-lime-300" : ""}`}
+            } ${num.isMatch ? " bg-red-700" : ""}`}
             key={index}
             onClick={() => {
               numberClickHandler(num, index);

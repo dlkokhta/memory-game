@@ -14,24 +14,12 @@ body {
 
 @keyframes spin {
   to {
-    transform: rotate(180deg);
+    transform: rotateY(180deg);
     /* transition: all ease-in 5s; */
   }
 }
 
 .animate-spin {
-  animation: spin 0.5s linear;
-  animation-duration: 120ms;
-}
-
-@keyframes spin2 {
-  to {
-    transform: rotate(-90deg);
-    /* transition: all ease-in 5s; */
-  }
-}
-
-.animate-spin2 {
   animation: spin 0.5s linear;
   animation-duration: 120ms;
 }
