@@ -4,9 +4,38 @@ import { setMenu } from "../store/MenuSlice";
 import { RootState } from "../store/store";
 import { Link } from "react-router-dom";
 import { objectTypes } from "../types";
+import anchor from "../assets/icons/anchor.png";
+import bug from "../assets/icons/bug.png";
+import car from "../assets/icons/car.png";
+import flask from "../assets/icons/flask.png";
+import handSpock from "../assets/icons/hand-spock.png";
+import liraSign from "../assets/icons/lira-sign.png";
+import moon from "../assets/icons/moon.png";
+import snowflake from "../assets/icons/snowflake.png";
+import sun from "../assets/icons/sun.png";
 
 const GamePage = () => {
-  const numbers = Array.from({ length: 8 }, (_, index) => index + 1);
+  const selectGridSize = useSelector(
+    (store: RootState) => store.gridSize.selectGridSize
+  );
+
+  const icons8 = [
+    anchor,
+    bug,
+    car,
+    flask,
+    handSpock,
+    liraSign,
+    moon,
+    snowflake,
+  ];
+  const iconPears = icons8.concat(icons8);
+  console.log(iconPears);
+
+  const numbers = Array.from(
+    { length: selectGridSize ? 8 : 18 },
+    (_, index) => index + 1
+  );
   const pairs = numbers.concat(numbers);
   const shuffledPairs = pairs.sort(() => Math.random() - 0.5);
   const randomArray = shuffledPairs.map((value, index) => ({
@@ -16,6 +45,7 @@ const GamePage = () => {
     isMatch: false,
   }));
 
+  console.log("selectGridSize from GamePage", selectGridSize);
   const [randomNumbers, setRandomNumbers] =
     useState<objectTypes[]>(randomArray);
 
@@ -74,10 +104,10 @@ const GamePage = () => {
       }
     }
   }, [firstNumber, secondNumber]);
-  console.log(firstNumber?.num.value);
-  console.log(secondNumber?.num.value);
+  // console.log(firstNumber?.num.value);
+  // console.log(secondNumber?.num.value);
 
-  console.log(randomNumbers);
+  // console.log(randomNumbers);
   const resetTurns = () => {
     setTimeout(() => {
       const updatedCardObjects = [...randomNumbers];
@@ -120,12 +150,22 @@ const GamePage = () => {
         </button>
       </div>
       {/**middle */}
-      <div className=" grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24">
+      <div
+        className={
+          selectGridSize
+            ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 first-letter"
+            : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 first-letter"
+        }
+      >
         {randomNumbers.map((num, index) => (
           <div
-            className={`text-white font-bold text-[40px] p-[7px] rounded-full  ${
+            className={`text-white font-bold ${
+              selectGridSize
+                ? "text-[40px] py-[7px] w-[72.53px]"
+                : "text-[24px] py-[5px] w-[46.88px]"
+            }  rounded-full  ${
               num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey "
-            } ${num.isMatch ? " bg-red-700" : ""}`}
+            } ${num.isMatch ? " bg-slate-300" : ""}`}
             key={index}
             onClick={() => {
               numberClickHandler(num, index);
@@ -158,6 +198,7 @@ const GamePage = () => {
                 >
                   Restart
                 </button>
+
                 <Link to={"/"}>
                   <button
                     onClick={newGameButtonChangeHandler}

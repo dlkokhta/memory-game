@@ -1,9 +1,8 @@
-import React from "react";
-
-const GamePage6x6 = () => {
+const GridSize6x6 = () => {
   return (
     <div>
-      <div className="flex justify-between font-atkinsonHyperlegible mb-20">
+      "GridSize6x6 Page"
+      {/* <div className="flex justify-between font-atkinsonHyperlegible mb-20">
         <h1 className="font-bold text-2xl">memory</h1>
         <button
           onClick={menuClickHandler}
@@ -11,9 +10,9 @@ const GamePage6x6 = () => {
         >
           Menu
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default GamePage6x6;
+export default GridSize6x6;

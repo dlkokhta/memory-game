@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectTheme } from "../store/SelectThemeSlice";
 import { Link } from "react-router-dom";
 import { RootState } from "../store/store";
+import { setGridSize } from "../store/GridSizeSlice";
 // import { useState } from "react";
 
 const StartGamePage = () => {
@@ -9,12 +10,21 @@ const StartGamePage = () => {
   const selectedTheme = useSelector(
     (store: RootState) => store.themeArgument.selectTheme
   );
+  console.log(selectedTheme);
+  const selectGridSize = useSelector(
+    (store: RootState) => store.gridSize.selectGridSize
+  );
   // const [test, setTest] = useState<string>("Numbers");
 
-  const buttonClickHandler = (buttonType: string): void => {
+  const themeClickHandler = (buttonType: string): void => {
     dispatch(setSelectTheme(buttonType));
   };
-  console.log(selectedTheme);
+  const grid4x4ClickHandler = () => {
+    dispatch(setGridSize(true));
+  };
+  const grid6x6ClickHandler = () => {
+    dispatch(setGridSize(false));
+  };
 
   return (
     <div className=" bg-darkBlue pt-20 px-6 pb-28 font-atkinsonHyperlegible">
@@ -29,7 +39,7 @@ const StartGamePage = () => {
         <div className="flex flex-row gap-3 mb-6 w-full">
           <button
             value={selectedTheme}
-            onClick={() => buttonClickHandler("Numbers")}
+            onClick={() => themeClickHandler("Numbers")}
             className={`${
               selectedTheme === "Numbers" ? "bg-darkGrey" : "bg-lightGrey"
             } text-white  text-base leading-5 py-3 px-9 rounded-3xl w-full`}
@@ -38,7 +48,7 @@ const StartGamePage = () => {
           </button>
           <button
             value={selectedTheme}
-            onClick={() => buttonClickHandler("Icons")}
+            onClick={() => themeClickHandler("Icons")}
             className={` ${
               selectedTheme === "Icons" ? "bg-darkGrey" : "bg-lightGrey"
             } text-white text-base leading-5 py-3 px-11 rounded-3xl w-full`}
@@ -66,20 +76,29 @@ const StartGamePage = () => {
           </button>
         </div>
 
-        <h2 className="text-grey text-base font-bold mb-3 w-full">
-          Numbers of PLayers
-        </h2>
+        <h2 className="text-grey text-base font-bold mb-3 w-full">Grid Size</h2>
 
         <div className="flex flex-row gap-3 mb-8">
-          <button className=" bg-darkGrey text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full">
+          <button
+            onClick={grid4x4ClickHandler}
+            className={`${
+              selectGridSize ? "bg-darkGrey" : "bg-lightGrey"
+            } text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full`}
+          >
             4x4
           </button>
-          <button className=" bg-darkGrey text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full">
+          <button
+            onClick={grid6x6ClickHandler}
+            className={`${
+              !selectGridSize ? "bg-darkGrey" : "bg-lightGrey"
+            } text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full`}
+          >
             6x6
           </button>
         </div>
 
         <div>
+          {/* <Link to={selectGridSize ? "/game" : "/game/page6x6"}> */}
           <Link to={"/game"}>
             <button className=" bg-orange text-white text-base leading-5 py-3 w-full rounded-3xl">
               Start Game
