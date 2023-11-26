@@ -4,24 +4,27 @@ import { setMenu } from "../store/MenuSlice";
 import { RootState } from "../store/store";
 import { Link } from "react-router-dom";
 import { objectTypes } from "../types";
-import anchor from "../assets/icons/anchor.png";
-import bug from "../assets/icons/bug.png";
-import car from "../assets/icons/car.png";
-import flask from "../assets/icons/flask.png";
-import handSpock from "../assets/icons/hand-spock.png";
-import liraSign from "../assets/icons/lira-sign.png";
-import moon from "../assets/icons/moon.png";
-import snowflake from "../assets/icons/snowflake.png";
-import sun from "../assets/icons/sun.png";
+import anchor from "../assets/icons/anchor.svg";
+import car from "../assets/icons/car.svg";
+import flask from "../assets/icons/flask.svg";
+import handSpock from "../assets/icons/hand-spock.svg";
+import liraSign from "../assets/icons/lira-sign.svg";
+import moon from "../assets/icons/moon.svg";
+import snowflake from "../assets/icons/snowflake.svg";
+import sun from "../assets/icons/sun.svg";
+// import futbol from "../assets/icons/futbol.svg";
 
 const GamePage = () => {
   const selectGridSize = useSelector(
     (store: RootState) => store.gridSize.selectGridSize
   );
+  const selectedTheme = useSelector(
+    (store: RootState) => store.themeArgument.selectTheme
+  );
 
   const icons8 = [
     anchor,
-    bug,
+    sun,
     car,
     flask,
     handSpock,
@@ -29,8 +32,39 @@ const GamePage = () => {
     moon,
     snowflake,
   ];
-  const iconPears = icons8.concat(icons8);
-  console.log(iconPears);
+  const icons18 = [
+    anchor,
+    sun,
+    car,
+    flask,
+    handSpock,
+    liraSign,
+    moon,
+    snowflake,
+    anchor,
+    sun,
+    car,
+    flask,
+    handSpock,
+    liraSign,
+    moon,
+    snowflake,
+    anchor,
+    sun,
+  ];
+
+  const iconPears = selectGridSize
+    ? icons8.concat(icons8)
+    : icons18.concat(icons18);
+  const shuffledPairsIcons = iconPears.sort(() => Math.random() - 0.5);
+  const randomIcons = shuffledPairsIcons.map((value, index) => ({
+    id: index,
+    value: value,
+    isFlipped: false,
+    isMatch: false,
+  }));
+
+  console.log(randomIcons);
 
   const numbers = Array.from(
     { length: selectGridSize ? 8 : 18 },
@@ -46,8 +80,9 @@ const GamePage = () => {
   }));
 
   console.log("selectGridSize from GamePage", selectGridSize);
-  const [randomNumbers, setRandomNumbers] =
-    useState<objectTypes[]>(randomArray);
+  const [randomNumbers, setRandomNumbers] = useState<objectTypes[]>(
+    selectedTheme === "Numbers" ? randomArray : randomIcons
+  );
 
   // const [index, setIndex] = useState<number>(0);
 
@@ -159,9 +194,9 @@ const GamePage = () => {
       >
         {randomNumbers.map((num, index) => (
           <div
-            className={`text-white font-bold ${
+            className={`text-white font-bold  ${
               selectGridSize
-                ? "text-[40px] py-[7px] w-[72.53px]"
+                ? "text-[40px] py-[7px] w-[72.53px] h-[72.53px]"
                 : "text-[24px] py-[5px] w-[46.88px]"
             }  rounded-full  ${
               num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey "
@@ -171,7 +206,30 @@ const GamePage = () => {
               numberClickHandler(num, index);
             }}
           >
-            {num.isFlipped ? num.value : "\u00A0"}
+            {selectedTheme === "Numbers" ? (
+              num.isFlipped ? (
+                num.value
+              ) : (
+                "\u00A0"
+              )
+            ) : num.isFlipped ? (
+              <div className="flex justify-center ">
+                <img
+                  src={num.value}
+                  alt="icon"
+                  className={`${
+                    selectGridSize
+                      ? "w-[40px] h-[40px] mt-2"
+                      : "w-[20px] h-[20px] mt-2"
+                  } `}
+                  style={{ color: "red" }}
+                />
+              </div>
+            ) : (
+              "\u00A0"
+            )}
+            {/* // {num.isFlipped ? num.value : "\u00A0"} */}
+            {/* {num.isFlipped ? <img src={num.value} alt="icon" /> : "\u00A0"} */}
           </div>
         ))}
       </div>
