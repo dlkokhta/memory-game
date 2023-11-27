@@ -1,5 +1,5 @@
 export type objectTypes = {
-    value: number,
+    value: number | string,
     isFlipped: boolean;
     isMatch: boolean
 

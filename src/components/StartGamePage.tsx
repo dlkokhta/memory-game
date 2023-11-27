@@ -25,6 +25,7 @@ const StartGamePage = () => {
   const grid6x6ClickHandler = () => {
     dispatch(setGridSize(false));
   };
+  const startChangeClickHandler = () => {};
 
   return (
     <div className=" bg-darkBlue pt-20 px-6 pb-28 font-atkinsonHyperlegible">
@@ -100,7 +101,10 @@ const StartGamePage = () => {
         <div>
           {/* <Link to={selectGridSize ? "/game" : "/game/page6x6"}> */}
           <Link to={"/game"}>
-            <button className=" bg-orange text-white text-base leading-5 py-3 w-full rounded-3xl">
+            <button
+              onClick={startChangeClickHandler}
+              className=" bg-orange text-white text-base leading-5 py-3 w-full rounded-3xl"
+            >
               Start Game
             </button>
           </Link>

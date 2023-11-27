@@ -12,9 +12,14 @@ import liraSign from "../assets/icons/lira-sign.svg";
 import moon from "../assets/icons/moon.svg";
 import snowflake from "../assets/icons/snowflake.svg";
 import sun from "../assets/icons/sun.svg";
+import GameOverSolo from "./GameOverSolo";
 // import futbol from "../assets/icons/futbol.svg";
 
 const GamePage = () => {
+  //moving count
+  const [count, setCount] = useState(0);
+  const [clicks, setClicks] = useState(0);
+
   const selectGridSize = useSelector(
     (store: RootState) => store.gridSize.selectGridSize
   );
@@ -64,7 +69,22 @@ const GamePage = () => {
     isMatch: false,
   }));
 
-  console.log(randomIcons);
+  //time
+  const [time, setTime] = useState(1);
+  const [formattedTime, setFormattedTime] = useState("0:01");
+  useEffect(() => {
+    if (!randomNumbers.every((item) => item.isFlipped)) {
+      setTimeout(() => {
+        console.log("clicked");
+        setTime(time + 1);
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        setFormattedTime(`${minutes}:${seconds}`);
+      }, 1000);
+    }
+  }, [time]);
 
   const numbers = Array.from(
     { length: selectGridSize ? 8 : 18 },
@@ -79,7 +99,6 @@ const GamePage = () => {
     isMatch: false,
   }));
 
-  console.log("selectGridSize from GamePage", selectGridSize);
   const [randomNumbers, setRandomNumbers] = useState<objectTypes[]>(
     selectedTheme === "Numbers" ? randomArray : randomIcons
   );
@@ -102,6 +121,12 @@ const GamePage = () => {
     clickedNum: objectTypes,
     clickedIndex: number
   ) => {
+    //moving count
+    setClicks(clicks + 1);
+    if ((clicks + 1) % 2 === 0) {
+      setCount(count + 1);
+    }
+
     if (randomNumbers[clickedIndex].isFlipped) {
       return;
     }
@@ -139,16 +164,12 @@ const GamePage = () => {
       }
     }
   }, [firstNumber, secondNumber]);
-  // console.log(firstNumber?.num.value);
-  // console.log(secondNumber?.num.value);
 
-  // console.log(randomNumbers);
   const resetTurns = () => {
     setTimeout(() => {
       const updatedCardObjects = [...randomNumbers];
       firstNumber !== secondNumber;
-      // updatedCardObjects[firstNumber.index].isFlipped = false;
-      // updatedCardObjects[secondNumber.index].isFlipped = false;
+
       if (firstNumber) {
         updatedCardObjects[firstNumber.index].isFlipped = false;
       }
@@ -233,17 +254,17 @@ const GamePage = () => {
           </div>
         ))}
       </div>
-
       <div className="flex justify-between font-atkinsonHyperlegible">
         <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md">
           <h1 className="text-grey">Time</h1>
-          <div className="text-2xl">1:53</div>
+          <div className="text-2xl w-12">{formattedTime}</div>
         </div>
         <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md">
           <h1 className="text-grey">Moves</h1>
-          <div className="text-2xl">39</div>
+          <div className="text-2xl">{count}</div>
         </div>
       </div>
+      {/* <GameOverSolo /> */}
       {/**menu */}
       {!menuIsVisible && (
         <div className="top-0 left-0 right-0 w-full h-full pt-[210px] fixed bg-[#181818] bg-opacity-70 ">
