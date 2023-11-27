@@ -75,7 +75,6 @@ const GamePage = () => {
   useEffect(() => {
     if (!randomNumbers.every((item) => item.isFlipped)) {
       setTimeout(() => {
-        console.log("clicked");
         setTime(time + 1);
         let minutes = Math.floor(time / 60);
         let seconds = time % 60;
@@ -264,7 +263,10 @@ const GamePage = () => {
           <div className="text-2xl">{count}</div>
         </div>
       </div>
-      {/* <GameOverSolo /> */}
+
+      {randomNumbers.every((item) => item.isFlipped) && (
+        <GameOverSolo count={count} formattedtime={formattedTime} />
+      )}
       {/**menu */}
       {!menuIsVisible && (
         <div className="top-0 left-0 right-0 w-full h-full pt-[210px] fixed bg-[#181818] bg-opacity-70 ">
