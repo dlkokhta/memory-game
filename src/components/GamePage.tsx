@@ -13,9 +13,12 @@ import moon from "../assets/icons/moon.svg";
 import snowflake from "../assets/icons/snowflake.svg";
 import sun from "../assets/icons/sun.svg";
 import GameOverSolo from "./GameOverSolo";
-// import futbol from "../assets/icons/futbol.svg";
+import GameOverMultyPlayer from "./GameOverMultyPlayer";
 
 const GamePage = () => {
+  const numberOfPlayers = useSelector(
+    (store: RootState) => store.numberOfPlayers.selectNumberOfPlayers
+  );
   //moving count
   const [count, setCount] = useState(0);
   const [clicks, setClicks] = useState(0);
@@ -26,6 +29,14 @@ const GamePage = () => {
   const selectedTheme = useSelector(
     (store: RootState) => store.themeArgument.selectTheme
   );
+
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+  const [playerValues, setPlayerValues] = useState(
+    Array.from({ length: numberOfPlayers }, () => 0)
+  );
+
+  console.log("PlayerIndex", currentPlayerIndex);
+  console.log("Values", playerValues);
 
   const icons8 = [
     anchor,
@@ -83,7 +94,8 @@ const GamePage = () => {
         setFormattedTime(`${minutes}:${seconds}`);
       }, 1000);
     }
-  }, [time]);
+  }, []);
+  // time
 
   const numbers = Array.from(
     { length: selectGridSize ? 8 : 18 },
@@ -147,6 +159,7 @@ const GamePage = () => {
   };
 
   useEffect(() => {
+    const updatedPlayerValues = [...playerValues]; //1
     if (firstNumber && secondNumber) {
       if (firstNumber.num.value === secondNumber.num.value) {
         const updatedCardObjects = [...randomNumbers];
@@ -157,10 +170,14 @@ const GamePage = () => {
         setRandomNumbers(updatedCardObjects);
         setFirstNumber(null);
         setSecondNumber(null);
+        updatedPlayerValues[currentPlayerIndex] += 1; //1
       } else {
+        const nextPlayerIndex = (currentPlayerIndex + 1) % numberOfPlayers; //1
+        setCurrentPlayerIndex(nextPlayerIndex); //1
+
         resetTurns();
-        console.log("do not match");
       }
+      setPlayerValues(updatedPlayerValues);
     }
   }, [firstNumber, secondNumber]);
 
@@ -248,25 +265,50 @@ const GamePage = () => {
             ) : (
               "\u00A0"
             )}
-            {/* // {num.isFlipped ? num.value : "\u00A0"} */}
-            {/* {num.isFlipped ? <img src={num.value} alt="icon" /> : "\u00A0"} */}
           </div>
         ))}
       </div>
-      <div className="flex justify-between font-atkinsonHyperlegible">
-        <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md">
-          <h1 className="text-grey">Time</h1>
-          <div className="text-2xl w-12">{formattedTime}</div>
+      {/* footer */}
+
+      {/* footer2*/}
+      {numberOfPlayers > "1" ? (
+        <div className="flex gap-6 font-atkinsonHyperlegible">
+          {Array.from({ length: numberOfPlayers }, (_, i) => (
+            <div
+              key={i}
+              className={`flex flex-col items-center py-2 px-2 ${
+                i === currentPlayerIndex ? "bg-orange" : "bg-lightGrey2"
+              } text-center rounded-md w-full`}
+            >
+              <h1 className="text-grey">P{i + 1}</h1>
+              <div className="text-2xl w-12">{playerValues[i]}</div>
+            </div>
+          ))}
         </div>
-        <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md">
-          <h1 className="text-grey">Moves</h1>
-          <div className="text-2xl">{count}</div>
+      ) : (
+        <div className="flex gap-6 font-atkinsonHyperlegible">
+          <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md">
+            <h1 className="text-grey">Time</h1>
+            <div className="text-2xl w-12">{formattedTime}</div>
+          </div>
+          <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md">
+            <h1 className="text-grey">Moves</h1>
+            <div className="text-2xl">{count}</div>
+          </div>
         </div>
-      </div>
+      )}
 
       {randomNumbers.every((item) => item.isFlipped) && (
-        <GameOverSolo count={count} formattedtime={formattedTime} />
+        <GameOverMultyPlayer
+          currentPlayerIndex={currentPlayerIndex}
+          playerValues={playerValues}
+        />
       )}
+
+      {/* <GameOverSolo/> */}
+      {randomNumbers.every(
+        (item) => item.isFlipped && numberOfPlayers === "1"
+      ) && <GameOverSolo count={count} formattedtime={formattedTime} />}
       {/**menu */}
       {!menuIsVisible && (
         <div className="top-0 left-0 right-0 w-full h-full pt-[210px] fixed bg-[#181818] bg-opacity-70 ">

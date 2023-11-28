@@ -3,6 +3,8 @@ import { setSelectTheme } from "../store/SelectThemeSlice";
 import { Link } from "react-router-dom";
 import { RootState } from "../store/store";
 import { setGridSize } from "../store/GridSizeSlice";
+import { setSelectNumberOfPlayers } from "../store/NumberOfPlayersSlice";
+import { useState } from "react";
 // import { useState } from "react";
 
 const StartGamePage = () => {
@@ -10,12 +12,15 @@ const StartGamePage = () => {
   const selectedTheme = useSelector(
     (store: RootState) => store.themeArgument.selectTheme
   );
-  console.log(selectedTheme);
+
   const selectGridSize = useSelector(
     (store: RootState) => store.gridSize.selectGridSize
   );
-  // const [test, setTest] = useState<string>("Numbers");
-
+  // const [numberOfPlayers, setNumbersOfPlayers] = useState<string>("1");
+  const numberOfPlayers = useSelector(
+    (store: RootState) => store.numberOfPlayers.selectNumberOfPlayers
+  );
+  console.log("numberOfPlayers", numberOfPlayers);
   const themeClickHandler = (buttonType: string): void => {
     dispatch(setSelectTheme(buttonType));
   };
@@ -26,6 +31,10 @@ const StartGamePage = () => {
     dispatch(setGridSize(false));
   };
   const startChangeClickHandler = () => {};
+
+  const numberOfPayersClickhandler = (nOfPlayers: string): void => {
+    dispatch(setSelectNumberOfPlayers(nOfPlayers));
+  };
 
   return (
     <div className=" bg-darkBlue pt-20 px-6 pb-28 font-atkinsonHyperlegible">
@@ -63,16 +72,36 @@ const StartGamePage = () => {
         </h2>
 
         <div className="flex flex-row gap-2 mb-6 w-full">
-          <button className=" bg-darkGrey text-white text-base leading-5 py-3 px-7 rounded-3xl w-full">
+          <button
+            onClick={() => numberOfPayersClickhandler("1")}
+            className={`${
+              numberOfPlayers === "1" ? "bg-darkGrey" : "bg-lightGrey"
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full`}
+          >
             1
           </button>
-          <button className=" bg-lightGrey text-white text-base leading-5 py-3 px-7 rounded-3xl w-full">
+          <button
+            onClick={() => numberOfPayersClickhandler("2")}
+            className={`${
+              numberOfPlayers === "2" ? "bg-darkGrey" : "bg-lightGrey"
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full`}
+          >
             2
           </button>
-          <button className=" bg-lightGrey text-white text-base leading-5 py-3 px-7 rounded-3xl w-full">
+          <button
+            onClick={() => numberOfPayersClickhandler("3")}
+            className={`${
+              numberOfPlayers === "3" ? "bg-darkGrey" : "bg-lightGrey"
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full`}
+          >
             3
           </button>
-          <button className=" bg-lightGrey text-white text-base leading-5 py-3 px-7 rounded-3xl w-full">
+          <button
+            onClick={() => numberOfPayersClickhandler("4")}
+            className={`${
+              numberOfPlayers === "4" ? "bg-darkGrey" : "bg-lightGrey"
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full`}
+          >
             4
           </button>
         </div>

@@ -35,14 +35,13 @@ const GameOverSolo = (props) => {
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <Link to={"/game"}>
-                  <button
-                    //   onClick={restartButtonClickHandler}
-                    className="bg-orange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl"
-                  >
-                    Restart
-                  </button>
-                </Link>
+                <button
+                  //   onClick={restartButtonClickHandler}
+                  className="bg-orange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl"
+                >
+                  Restart
+                </button>
+
                 <Link to={"/"}>
                   <button
                     //   onClick={resumeGameButtonClickHandler}
