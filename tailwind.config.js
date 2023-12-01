@@ -15,7 +15,7 @@ export default {
         grey: "#7191A5",
         lightBlue: "#6395B8",
         white: "#FCFCFC",
-        orangeHover: "#FFB84A",
+        hoverOrange: "#FFB84A",
       },
     },
 

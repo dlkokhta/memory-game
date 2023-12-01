@@ -12,7 +12,7 @@ const initialState: Type = {
 const GridSizeSlice = createSlice({
   name: "gridsize",
   initialState,
-
+ 
   reducers: {
     setGridSize: (state, action: PayloadAction<boolean>) => {
       state.selectGridSize = action.payload
