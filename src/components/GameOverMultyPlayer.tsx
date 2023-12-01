@@ -37,7 +37,7 @@ const GameOverMultyPlayer: React.FC<GameOverMultyPlayerProps> = (props) => {
                 {props.playerValues
                   .map((value, index) => ({ value, index }))
                   .sort((a, b) => b.value - a.value)
-                  .map((player, i, arr) => {
+                  .map((player, _, arr) => {
                     const isWinner = arr[0].value === player.value;
                     return (
                       <div

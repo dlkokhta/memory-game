@@ -34,7 +34,7 @@ const GamePage = () => {
   const [playerValues, setPlayerValues] = useState(
     Array.from({ length: numberOfPlayers }, () => 0)
   );
-
+  console.log(typeof playerValues);
   const icons8 = [
     anchor,
     sun,
