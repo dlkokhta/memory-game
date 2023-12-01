@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 interface Type {
-    selectNumberOfPlayers: string;
+    selectNumberOfPlayers: number;
 }
 const initialState: Type = {
-    selectNumberOfPlayers: "1"
+    selectNumberOfPlayers: 1
 }
 
 const NumberOfPlayersSlice = createSlice({
@@ -13,7 +13,7 @@ const NumberOfPlayersSlice = createSlice({
     initialState,
 
     reducers: {
-        setSelectNumberOfPlayers: (state, action: PayloadAction<string>) => {
+        setSelectNumberOfPlayers: (state, action: PayloadAction<number>) => {
             state.selectNumberOfPlayers = action.payload;
         },
     },

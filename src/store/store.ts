@@ -8,7 +8,7 @@ import NumberOfPlayersSlice from "./NumberOfPlayersSlice";
 const store = configureStore({
   reducer: {
     themeArgument: SelectThemeSlice,
-    menu2: MenuSlice,//this comes from menu1
+    menu2: MenuSlice,
     gridSize: GridSizeSlice,
     numberOfPlayers: NumberOfPlayersSlice
   },

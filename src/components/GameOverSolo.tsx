@@ -1,12 +1,15 @@
-import React from "react";
 import { Link } from "react-router-dom";
-
-const GameOverSolo = (props) => {
+interface GameOverMultyPlayerProps {
+  restartButtonClickHandler2: () => void;
+  formattedtime: string;
+  count: number;
+}
+const GameOverSolo: React.FC<GameOverMultyPlayerProps> = (props) => {
   return (
     <div>
       <div className="top-0 left-0 right-0 w-full h-full pt-[120px] fixed bg-[#181818] bg-opacity-70 ">
         <div className="absolute z-20 left-0 right-0 ">
-          <div className="p-6 lg:p-14">
+          <div className="p-6 lg:p-14 xl:px-[398px]">
             <div className="flex flex-col px-6 pb-6 gap-6 pt-8 bg-white rounded-xl lg:pt-14 lg:px-14 lg:pb-20 lg:gap-10">
               <div className="flex flex-col text-center ">
                 <h1 className=" font-atkinsonHyperlegible font-bold text-xl lg:text-5xl lg:pb-4">
@@ -43,10 +46,7 @@ const GameOverSolo = (props) => {
                 </button>
 
                 <Link to={"/"}>
-                  <button
-                    //   onClick={resumeGameButtonClickHandler}
-                    className="bg-lightGrey2  font-bold text-lg text-black pt-3 px-[65px] pb-3 rounded-3xl whitespace-nowrap lg:text-xl lg:py-4 lg:px-12 lg:rounded-full"
-                  >
+                  <button className="bg-lightGrey2 w-full  font-bold text-lg text-black pt-3 px-[65px] pb-3 rounded-3xl whitespace-nowrap lg:text-xl lg:py-4 lg:px-12 lg:rounded-full">
                     Setup New Game
                   </button>
                 </Link>

@@ -35,9 +35,6 @@ const GamePage = () => {
     Array.from({ length: numberOfPlayers }, () => 0)
   );
 
-  console.log("PlayerIndex", currentPlayerIndex);
-  console.log("Values", playerValues);
-
   const icons8 = [
     anchor,
     sun,
@@ -84,21 +81,21 @@ const GamePage = () => {
   const [time, setTime] = useState(1);
   const [formattedTime, setFormattedTime] = useState("0:01");
   useEffect(() => {
-    let timerId;
+    let timerId: number;
     if (
       !randomNumbers.every((item) => item.isFlipped) &&
-      numberOfPlayers === "1"
+      numberOfPlayers === 1
     ) {
       timerId = setTimeout(() => {
         setTime(time + 1);
-        let minutes = Math.floor(time / 60);
-        let seconds = time % 60;
+        let minutes: number = Math.floor(time / 60);
+        let seconds: number | string = time % 60;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         setFormattedTime(`${minutes}:${seconds}`);
       }, 1000);
     }
-    return () => clearTimeout(timerId); // This will clear the timeout when the component unmounts or time state changes
+    return () => clearTimeout(timerId);
   }, [time]);
 
   // time
@@ -119,8 +116,6 @@ const GamePage = () => {
   const [randomNumbers, setRandomNumbers] = useState<objectTypes[]>(
     selectedTheme === "Numbers" ? randomArray : randomIcons
   );
-
-  // const [index, setIndex] = useState<number>(0);
 
   const dispatch = useDispatch();
   const menuIsVisible = useSelector((store: RootState) => store.menu2.menu);
@@ -165,21 +160,22 @@ const GamePage = () => {
   };
 
   useEffect(() => {
-    const updatedPlayerValues = [...playerValues]; //1
+    const updatedPlayerValues = [...playerValues];
     if (firstNumber && secondNumber) {
       if (firstNumber.num.value === secondNumber.num.value) {
         const updatedCardObjects = [...randomNumbers];
         updatedCardObjects[firstNumber.index].isMatch = true;
-        updatedCardObjects[secondNumber.index].isMatch = true; // Add this line
+        updatedCardObjects[secondNumber.index].isMatch = true;
         updatedCardObjects[firstNumber.index].isFlipped = true;
         updatedCardObjects[secondNumber.index].isFlipped = true;
         setRandomNumbers(updatedCardObjects);
         setFirstNumber(null);
         setSecondNumber(null);
-        updatedPlayerValues[currentPlayerIndex] += 1; //1
+        updatedPlayerValues[currentPlayerIndex] += 1;
       } else {
-        const nextPlayerIndex = (currentPlayerIndex + 1) % numberOfPlayers; //1
-        setCurrentPlayerIndex(nextPlayerIndex); //1
+        const nextPlayerIndex: number =
+          (currentPlayerIndex + 1) % Number(numberOfPlayers);
+        setCurrentPlayerIndex(nextPlayerIndex);
 
         resetTurns();
       }
@@ -219,7 +215,7 @@ const GamePage = () => {
     setRandomNumbers(selectedTheme === "Numbers" ? randomArray : randomIcons);
     setCount(0);
     setClicks(0);
-    setTime(1); // Resetting the time to 1
+    setTime(1);
     setFormattedTime("0:01");
     setCurrentPlayerIndex(0);
     setPlayerValues(Array.from({ length: numberOfPlayers }, () => 0));
@@ -233,7 +229,7 @@ const GamePage = () => {
     setRandomNumbers(selectedTheme === "Numbers" ? randomArray : randomIcons);
     setCount(0);
     setClicks(0);
-    setTime(1); // Resetting the time to 1
+    setTime(1);
     setFormattedTime("0:01");
     setCurrentPlayerIndex(0);
     setPlayerValues(Array.from({ length: numberOfPlayers }, () => 0));
@@ -242,9 +238,9 @@ const GamePage = () => {
   const windowWidth = window.innerWidth;
 
   return (
-    <div className="p-6 relative lg:p-9">
+    <div className="p-6 relative lg:p-9 xl:pt-16 xl:px-44 xl:pb-20">
       {/**menu */}
-      <div className="flex justify-between font-atkinsonHyperlegible mb-20 lg:mb-40">
+      <div className="flex justify-between font-atkinsonHyperlegible mb-20 lg:mb-40 xl:mb-24">
         <h1 className="font-bold text-2xl lg:text-[40px]">memory</h1>
         <button
           onClick={menuClickHandler}
@@ -256,15 +252,12 @@ const GamePage = () => {
         <div className="gap-4 hidden lg:flex">
           <button
             onClick={restartButtonClickHandler2}
-            className="bg-orange  font-bold text-base text-white py-2 px-4 rounded-3xl lg:text-2xl lg:py-3 lg:px-7 lg:rounded-full"
+            className="bg-orange  font-bold text-base text-white py-2 px-4 rounded-3xl lg:text-2xl lg:py-3 lg:px-7 lg:rounded-full xl:hover:bg-hoverOrange"
           >
             Restart
           </button>
           <Link to={"/"}>
-            <button
-              // onClick={menuClickHandler}
-              className="bg-lightGrey2  font-bold text-base text-black py-2 px-4 rounded-3xl lg:text-2xl lg:py-4 lg:px-5 lg:rounded-full"
-            >
+            <button className="bg-lightGrey2  font-bold text-base text-black py-2 px-4 rounded-3xl lg:text-2xl lg:py-4 lg:px-5 lg:rounded-full xl:hover:bg-lightBlue xl:hover:text-white">
               New Game
             </button>
           </Link>
@@ -276,16 +269,16 @@ const GamePage = () => {
         <div
           className={
             selectGridSize
-              ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 justify-items-center  lg:justify-items-center lg:px-20 lg:mb-32"
-              : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 justify-items-center lg:justify-items-center lg:px-[75px] lg:mb-32"
+              ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 justify-items-center  lg:justify-items-center lg:px-20 lg:mb-32 xl:px-72 xl:mb-[110px] "
+              : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 justify-items-center lg:justify-items-center lg:px-[75px] lg:mb-32 xl:px-72 xl:mb-[110px]"
           }
         >
           {randomNumbers.map((num, index) => (
             <div
               className={`text-white font-bold ${
                 selectGridSize
-                  ? "text-[40px] py-[7px] w-[72.53px] h-[72.53px] lg:w-[118px] lg:h-[118px] lg:text-[56px] lg:flex lg:items-center lg:justify-center "
-                  : "text-[24px] py-[5px] w-[46.88px] h-[46.88px]  lg:w-[82px] lg:h-[82px] lg:text-[44px] lg:flex lg:items-center lg:justify-center"
+                  ? "text-[40px] py-[7px] w-[72.53px] h-[72.53px] lg:w-[118px] lg:h-[118px] lg:text-[56px] lg:flex lg:items-center lg:justify-center xl:hover:bg-lightBlue "
+                  : "text-[24px] py-[5px] w-[46.88px] h-[46.88px]  lg:w-[82px] lg:h-[82px] lg:text-[44px] lg:flex lg:items-center lg:justify-center xl:hover:bg-lightBlue"
               }  rounded-full  ${
                 num.isFlipped ? "bg-orange animate-spin" : "bg-darkGrey "
               } ${num.isMatch ? " bg-slate-300" : ""}`}
@@ -303,7 +296,7 @@ const GamePage = () => {
               ) : num.isFlipped ? (
                 <div className="flex justify-center ">
                   <img
-                    src={num.value}
+                    src={num.value as string}
                     alt="icon"
                     className={`${
                       selectGridSize
@@ -322,17 +315,15 @@ const GamePage = () => {
       </div>
       {/* footer */}
 
-      {/* footer2*/}
-      {numberOfPlayers > "1" ? (
-        <div className="flex gap-6 font-atkinsonHyperlegible lg:gap-3">
+      {numberOfPlayers > 1 ? (
+        <div className="flex gap-6 font-atkinsonHyperlegible lg:gap-3 xl:gap-8 xl:">
           {Array.from({ length: numberOfPlayers }, (_, i) => (
             <div
               key={i}
-              className={`flex flex-col items-center py-2 px-2 ${
+              className={`flex flex-col items-center py-2 px-2 xl:relative lg:relative ${
                 i === currentPlayerIndex ? "bg-orange" : "bg-lightGrey2"
-              } text-center rounded-md w-full lg:rounded-xl lg:py-4 lg:items-start lg:pl-4 `}
+              } text-center rounded-md w-full lg:rounded-xl lg:py-4 lg:items-start lg:pl-4 xl:flex-row xl:justify-between`}
             >
-              {/* <h1 className="text-grey ">P{i + 1}</h1> */}
               <h1
                 className={` ${
                   i === currentPlayerIndex ? "text-white" : "text-grey"
@@ -347,16 +338,27 @@ const GamePage = () => {
               >
                 {playerValues[i]}
               </div>
+              {i === currentPlayerIndex && (
+                <h2 className="hidden xl:block xl:absolute xl:left-0 xl:right-0 xl:top-[80px] xl:font-atkinsonHyperlegible xl:text-sm font-bold xl:tracking-widest">
+                  CURRENT TURN
+                </h2>
+              )}
+              {i === currentPlayerIndex && (
+                <div className="hidden xl:block  absolute right-0 left-[80px] top-[-18px] triangle w-0 h-0 border-l-[50px] border-r-[50px] border-b-[50px] border-transparent border-b-orange "></div>
+              )}
+              {i === currentPlayerIndex && (
+                <div className="hidden xl:hidden lg:block lg:absolute right-0 left-[50px] top-[-14px] triangle w-0 h-0 border-l-[35px] border-r-[35px] border-b-[35px] border-transparent border-b-orange "></div>
+              )}
             </div>
           ))}
         </div>
       ) : (
-        <div className="flex gap-6 justify-between font-atkinsonHyperlegible lg:px-20 lg:justify-between">
-          <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md lg:flex lg:items-center lg:py-5 lg:pl-7 lg:gap-28 lg:rounded-xl">
+        <div className="flex gap-6 justify-between font-atkinsonHyperlegible lg:px-20 lg:justify-between xl:px-72">
+          <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md lg:flex lg:items-center lg:py-5 lg:pl-7 lg:gap-28 lg:rounded-xl xl:px-7">
             <h1 className="text-grey lg:text-lg">Time</h1>
             <div className="text-2xl w-12 lg:text-3xl ">{formattedTime}</div>
           </div>
-          <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md lg:flex lg:items-center lg:py-5 lg:pl-7 lg:gap-28 lg:rounded-xl">
+          <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md lg:flex lg:items-center lg:py-5 lg:pl-7 lg:gap-28 lg:rounded-xl xl:px-5">
             <h1 className="text-grey lg:text-lg">Moves</h1>
             <div className="text-2xl lg:text-3xl">{count}</div>
           </div>
@@ -365,7 +367,7 @@ const GamePage = () => {
 
       {randomNumbers.every((item) => item.isFlipped) && (
         <GameOverMultyPlayer
-          currentPlayerIndex={currentPlayerIndex}
+          // currentPlayerIndex={currentPlayerIndex}
           playerValues={playerValues}
           restartButtonClickHandler2={restartButtonClickHandler2}
         />
@@ -373,7 +375,7 @@ const GamePage = () => {
 
       {/* <GameOverSolo/> */}
       {randomNumbers.every(
-        (item) => item.isFlipped && numberOfPlayers === "1"
+        (item) => item.isFlipped && numberOfPlayers === 1
       ) && (
         <GameOverSolo
           count={count}
