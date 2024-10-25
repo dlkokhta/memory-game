@@ -35,18 +35,16 @@ const StartGamePage = () => {
   };
 
   return (
-    <div className=" bg-darkBlue h-screen pt-20 px-6 pb-28 font-atkinsonHyperlegible lg:pt-40 xl:px-[393px]">
-      <h1 className="text-white pb-11 font-bold text-[32px] text-center lg:text-[40px] lg:pb-20">
+    <div className=" bg-darkBlue h-screen font-atkinsonHyperlegible sm:px-40 sm:pt-10 lg:px-80 lg:pt-5 xl:px-[470px]">
+      <h1 className="text-white pb-11 font-bold text-[32px] text-center ">
         memory
       </h1>
 
-      <div className="bg-white p-6 rounded-xl lg:p-14">
-        <h2 className="text-grey text-base font-bold mb-3 lg:text-xl lg:mb-4">
-          Select Theme
-        </h2>
+      <div className="bg-white p-6 rounded-xl ">
+        <h2 className="text-grey text-base font-bold mb-3">Select Theme</h2>
 
         {/**numbers, icons */}
-        <div className="flex flex-row gap-3 mb-6 w-full lg:mb-8 lg:gap-8">
+        <div className="flex flex-row gap-3 mb-6 w-full ">
           <button
             value={selectedTheme}
             onClick={() => themeClickHandler("Numbers")}
@@ -54,7 +52,7 @@ const StartGamePage = () => {
               selectedTheme === "Numbers"
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white  text-base leading-5 py-3 px-9 rounded-3xl w-full lg:text-2xl lg:rounded-full`}
+            } text-white  text-base leading-5 py-3 px-9 rounded-3xl w-full `}
           >
             Numbers
           </button>
@@ -65,24 +63,24 @@ const StartGamePage = () => {
               selectedTheme === "Icons"
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-11 rounded-3xl w-full lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-11 rounded-3xl w-full`}
           >
             Icons
           </button>
         </div>
 
-        <h2 className="text-grey text-base font-bold mb-3 lg:text-xl lg:mb-4">
+        <h2 className="text-grey text-base font-bold mb-3 ">
           Numbers of PLayers
         </h2>
 
-        <div className="flex flex-row gap-2 mb-6 w-full lg:mb-2xl lg:gap-5">
+        <div className="flex flex-row gap-2 mb-6 w-full ">
           <button
             onClick={() => numberOfPayersClickhandler(1)}
             className={`${
               numberOfPlayers === 1
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full `}
           >
             1
           </button>
@@ -92,7 +90,7 @@ const StartGamePage = () => {
               numberOfPlayers === 2
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full `}
           >
             2
           </button>
@@ -102,7 +100,7 @@ const StartGamePage = () => {
               numberOfPlayers === 3
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full `}
           >
             3
           </button>
@@ -112,22 +110,22 @@ const StartGamePage = () => {
               numberOfPlayers === 4
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-7 rounded-3xl w-full `}
           >
             4
           </button>
         </div>
 
-        <h2 className="text-grey text-base font-bold mb-3 w-full lg:text-xl">
+        <h2 className="text-grey text-base font-bold mb-3 w-full ">
           Grid Size
         </h2>
 
-        <div className="flex flex-row gap-3 mb-8 lg:gap-5">
+        <div className="flex flex-row gap-3 mb-8 ">
           <button
             onClick={grid4x4ClickHandler}
             className={`${
               selectGridSize ? "bg-darkGrey hover:bg-lightBlue" : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full  lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full  `}
           >
             4x4
           </button>
@@ -137,7 +135,7 @@ const StartGamePage = () => {
               !selectGridSize
                 ? "bg-darkGrey hover:bg-lightBlue"
                 : "bg-lightGrey"
-            } text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full  lg:text-2xl lg:rounded-full`}
+            } text-white text-base leading-5 py-3 px-[53px] rounded-3xl w-full  `}
           >
             6x6
           </button>
@@ -147,7 +145,7 @@ const StartGamePage = () => {
           <Link to={"/game"}>
             <button
               onClick={startChangeClickHandler}
-              className=" bg-orange hover:bg-hoverOrange text-white text-base leading-5 py-3 w-full rounded-3xl  lg:text-3xl lg:rounded-full"
+              className=" bg-orange hover:bg-hoverOrange text-white text-base leading-5 py-3 w-full rounded-3xl  "
             >
               Start Game
             </button>

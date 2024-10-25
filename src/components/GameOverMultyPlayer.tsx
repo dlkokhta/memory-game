@@ -22,14 +22,14 @@ const GameOverMultyPlayer: React.FC<GameOverMultyPlayerProps> = (props) => {
       <div className="top-0 left-0 right-0 w-full h-full pt-[120px] fixed bg-[#181818] bg-opacity-70">
         <div className="absolute z-20 left-0 right-0 ">
           <div className="p-6 lg:p-14 xl:px-[398px]">
-            <div className="flex flex-col px-6 pb-6 gap-6 pt-8 bg-white rounded-xl lg:pt-14 lg:pb-20">
+            <div className="flex flex-col px-6 pb-6 gap-6 pt-8 bg-white rounded-xl ">
               <div className="flex flex-col text-center">
                 <div>
-                  <h1 className="font-atkinsonHyperlegible font-bold text-xl lg:text-5xl lg:mb-4">
+                  <h1 className="font-atkinsonHyperlegible font-bold text-xl ">
                     {isTie ? "It's a tie!" : `Player ${winnerPlayer} wins!`}
                   </h1>
                 </div>
-                <h3 className="font-atkinsonHyperlegible font-bold text-sm text-grey lg:text-xl lg:mb-8">
+                <h3 className="font-atkinsonHyperlegible font-bold text-sm text-grey ">
                   Game over! Here's how you got on...
                 </h3>
               </div>
@@ -42,18 +42,18 @@ const GameOverMultyPlayer: React.FC<GameOverMultyPlayerProps> = (props) => {
                     return (
                       <div
                         key={player.index}
-                        className={`flex justify-between items-center py-3 px-4 lg:py-6 lg:px-8  ${
+                        className={`flex justify-between items-center py-3 px-4   ${
                           isWinner ? "bg-black text-white" : "bg-lightGrey2"
                         } rounded-md`}
                       >
                         <h1
                           className={`text-xs font-atkinsonHyperlegible ${
                             isWinner ? "text-white" : "text-grey"
-                          }  font-bold lg:text-lg`}
+                          }  font-bold `}
                         >
                           Player {player.index + 1}
                         </h1>
-                        <div className="font-atkinsonHyperlegible text-xl font-bold lg:text-3xl">
+                        <div className="font-atkinsonHyperlegible text-xl font-bold ">
                           {player.value} Pairs
                         </div>
                       </div>
@@ -61,16 +61,16 @@ const GameOverMultyPlayer: React.FC<GameOverMultyPlayerProps> = (props) => {
                   })}
               </div>
 
-              <div className="flex flex-col gap-4 justify-between lg:flex-row  lg:px-8 lg:mt-8">
+              <div className="flex flex-col gap-4 justify-between">
                 <button
                   onClick={props.restartButtonClickHandler2}
-                  className="bg-orange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl lg:text-xl xl:px-[100px]"
+                  className="bg-orange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl "
                 >
                   Restart
                 </button>
 
                 <Link to={"/"}>
-                  <button className="bg-lightGrey2 w-full  font-bold text-lg text-black pt-3 px-[65px] pb-3 rounded-3xl whitespace-nowrap lg:text-xl lg:px-10">
+                  <button className="bg-lightGrey2 w-full  font-bold text-lg text-black pt-3 px-[65px] pb-3 rounded-3xl whitespace-nowrap ">
                     Setup New Game
                   </button>
                 </Link>
