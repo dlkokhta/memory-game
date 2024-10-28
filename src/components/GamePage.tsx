@@ -240,8 +240,8 @@ const GamePage = () => {
   return (
     <div className="p-6 relative ">
       {/**menu */}
-      <div className="flex justify-between font-atkinsonHyperlegible mb-20 ">
-        <h1 className="font-bold text-2xl lg:text-[40px]">memory</h1>
+      <div className="flex justify-between font-atkinsonHyperlegible mb-20 lg:px-20">
+        <h1 className="font-bold text-2xl ">memory</h1>
         <button
           onClick={menuClickHandler}
           className="bg-orange  font-bold text-base text-white py-2 px-4 rounded-3xl "
@@ -249,7 +249,7 @@ const GamePage = () => {
           Menu
         </button>
 
-        <div className="gap-4 hidden lg:flex">
+        <div className="gap-4 hidden ">
           <button
             onClick={restartButtonClickHandler2}
             className="bg-orange  font-bold text-base text-white py-2 px-4 rounded-3xl "
@@ -269,8 +269,8 @@ const GamePage = () => {
         <div
           className={
             selectGridSize
-              ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 justify-items-center"
-              : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 justify-items-center "
+              ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 justify-items-center md:px-28 lg:px-60 xl:px-80"
+              : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 justify-items-center md:px-28 lg:px-60 xl:px-80"
           }
         >
           {randomNumbers.map((num, index) => (
@@ -327,12 +327,12 @@ const GamePage = () => {
               <h1
                 className={` ${
                   i === currentPlayerIndex ? "text-white" : "text-grey"
-                } lg:text-base`}
+                } `}
               >
                 {windowWidth > 760 ? `Player${i + 1}` : `P${i + 1}`}
               </h1>
               <div
-                className={`text-2xl w-12 lg:flex ${
+                className={`text-2xl w-12  ${
                   i === currentPlayerIndex ? "text-white" : "text-black"
                 }`}
               >
@@ -351,14 +351,14 @@ const GamePage = () => {
           ))}
         </div>
       ) : (
-        <div className="flex gap-6 justify-between font-atkinsonHyperlegible ">
+        <div className="flex gap-6 justify-between font-atkinsonHyperlegible lg:px-20">
           <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md ">
             <h1 className="text-grey lg:text-lg">Time</h1>
             <div className="text-2xl w-12 lg:text-3xl ">{formattedTime}</div>
           </div>
           <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md ">
-            <h1 className="text-grey lg:text-lg">Moves</h1>
-            <div className="text-2xl lg:text-3xl">{count}</div>
+            <h1 className="text-grey ">Moves</h1>
+            <div className="text-2xl l">{count}</div>
           </div>
         </div>
       )}
@@ -383,10 +383,10 @@ const GamePage = () => {
       )}
       {/**menu */}
       {!menuIsVisible && (
-        <div className="top-0 left-0 right-0 w-full h-full pt-[210px] fixed bg-[#181818] bg-opacity-70  ">
-          <div className="absolute z-20 left-0 right-0 ">
+        <div className="top-0 left-0 right-0 w-full h-full pt-[210px] fixed bg-[#181818] bg-opacity-70 ">
+          <div className="absolute z-20 left-0 right-0 sm:px-20 md:px-28 lg:px-60 xl:px-80">
             <div className="  p-6 ">
-              <div className="flex flex-col gap-4 p-6 bg-white rounded-xl">
+              <div className="flex flex-col gap-4 p-6 bg-white rounded-xl ">
                 <button
                   onClick={restartButtonClickHandler}
                   className="bg-orange hover:bg-hoverOrange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl"
