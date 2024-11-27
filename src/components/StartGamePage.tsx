@@ -35,7 +35,7 @@ const StartGamePage = () => {
   };
 
   return (
-    <div className=" bg-darkBlue h-screen font-atkinsonHyperlegible px-5 sm:px-40 sm:pt-10 lg:px-80 lg:pt-5 xl:px-[470px]">
+    <div className=" bg-darkBlue h-screen font-atkinsonHyperlegible px-5 sm:px-32 md:px-44 sm:pt-10 lg:px-80 lg:pt-5 xl:px-[420px]">
       <h1 className="text-white pb-11 font-bold text-[32px] text-center ">
         memory
       </h1>

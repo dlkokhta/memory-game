@@ -8,7 +8,7 @@ const GameOverSolo: React.FC<GameOverMultyPlayerProps> = (props) => {
   return (
     <div>
       <div className="top-0 left-0 right-0 w-full h-full pt-[120px] fixed bg-[#181818] bg-opacity-70 ">
-        <div className="absolute z-20 left-0 right-0 md:px-40 xl:px-60">
+        <div className="absolute z-20 left-0 right-0 md:px-40 xl:px-60 sm:px-24 ">
           <div className="p-6 ">
             <div className="flex flex-col px-6 pb-6 gap-6 pt-8 bg-white rounded-xl ">
               <div className="flex flex-col text-center ">
