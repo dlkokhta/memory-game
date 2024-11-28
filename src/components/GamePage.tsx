@@ -240,7 +240,7 @@ const GamePage = () => {
   return (
     <div className="p-6 relative ">
       {/**menu */}
-      <div className="flex justify-between font-atkinsonHyperlegible mb-20 sm:px-24 md:px-36 lg:px-[27 0px] ">
+      <div className="flex justify-between font-atkinsonHyperlegible mb-20 sm:px-24 md:px-36 lg:px-[270px] xl:px-[420px] 2xl:px-[540px] 3xl:px-[670px] 4xl:px-[720px]">
         <h1 className="font-bold text-2xl ">memory</h1>
         <button
           onClick={menuClickHandler}
@@ -269,8 +269,8 @@ const GamePage = () => {
         <div
           className={
             selectGridSize
-              ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 justify-items-center sm:px-20 md:px-28 lg:px-60 xl:px-80"
-              : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 justify-items-center md:px-28 lg:px-60 xl:px-80"
+              ? "grid grid-cols-4 grid-rows-4 text-center gap-[12.30px] mb-24 justify-items-center sm:px-20 md:px-28 lg:px-60 xl:px-[400px] 2xl:px-[520px] 3xl:px-[650px] 4xl:px-[690px]"
+              : "grid grid-cols-6 grid-rows-6 text-center gap-[9.12px] mb-24 justify-items-center sm:px-20 md:px-36 lg:px-[260px] xl:px-[410px] 2xl:px-[530px] 3xl:px-[670px] 4xl:px-[720px]"
           }
         >
           {randomNumbers.map((num, index) => (
@@ -351,7 +351,7 @@ const GamePage = () => {
           ))}
         </div>
       ) : (
-        <div className="flex gap-6 justify-between font-atkinsonHyperlegible sm:px-24 lg:px-20 md:px-36">
+        <div className="flex gap-6 justify-between font-atkinsonHyperlegible sm:px-24 md:px-36 lg:px-[270px] xl:px-[420px] 2xl:px-[540px] 3xl:px-[670px] 4xl:px-[720px]">
           <div className="py-2 px-12 bg-lightGrey2 text-center rounded-md ">
             <h1 className="text-grey lg:text-lg">Time</h1>
             <div className="text-2xl w-12 lg:text-3xl ">{formattedTime}</div>
@@ -384,12 +384,12 @@ const GamePage = () => {
       {/**menu */}
       {!menuIsVisible && (
         <div className="top-0 left-0 right-0 w-full h-full pt-[210px] fixed bg-[#181818] bg-opacity-70 ">
-          <div className="absolute z-20 left-0 right-0 sm:px-32 md:px-40 lg:px-72 xl:px-80">
+          <div className="absolute z-20 left-0 right-0 sm:px-32 md:px-40 lg:px-72 xl:px-[430px] 2xl:px-[560px] 3xl:px-[680px] 4xl:px-[730px]">
             <div className="  p-6 ">
               <div className="flex flex-col gap-4 p-6 bg-white rounded-xl ">
                 <button
                   onClick={restartButtonClickHandler}
-                  className="bg-orange hover:bg-hoverOrange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl"
+                  className="bg-orange hover:bg-hoverOrange  font-bold text-lg text-white pt-3 px-[107px] pb-3 rounded-3xl "
                 >
                   Restart
                 </button>
